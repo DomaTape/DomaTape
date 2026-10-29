@@ -1,1 +1,152 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roshan की वेबसाइट</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f3f6fb;
+      color: #222;
+    }
+    header {
+      background: #123b70;
+      color: white;
+      padding: 22px;
+      text-align: center;
+    }
+    nav {
+      background: #09294f;
+      padding: 14px;
+      text-align: center;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 10px;
+    }
+    .hero {
+      text-align: center;
+      padding: 55px 20px;
+      background: #dceaff;
+    }
+    .hero h2 { font-size: 32px; }
+    .btn {
+      background: #1769d2;
+      color: white;
+      border: none;
+      padding: 12px 22px;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      margin: 8px;
+    }
+    .section {
+      background: white;
+      padding: 25px;
+      margin: 20px auto;
+      border-radius: 12px;
+      max-width: 800px;
+      width: 90%;
+    }
+    .cards {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    .card {
+      flex: 1 1 180px;
+      background: #eef4ff;
+      padding: 18px;
+      border-radius: 10px;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border: 1px solid #bbb;
+      border-radius: 6px;
+    }
+    footer {
+      background: #09294f;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Roshan की वेबसाइट</h1>
+    <p>सीखें, जानें और आगे बढ़ें</p>
+  </header>
 
+  <nav>
+    <a href="#home">होम</a>
+    <a href="#about">हमारे बारे में</a>
+    <a href="#services">सेवाएँ</a>
+    <a href="#contact">संपर्क</a>
+  </nav>
+
+  <section class="hero" id="home">
+    <h2>आपका स्वागत है!</h2>
+    <p>यह मेरी बनाई हुई वेबसाइट है।</p>
+    <a class="btn" href="#about">और जानें</a>
+    <button class="btn" onclick="welcome()">यहाँ क्लिक करें</button>
+  </section>
+
+  <section class="section" id="about">
+    <h2>हमारे बारे में</h2>
+    <p>यहाँ अपनी वेबसाइट और उसके उद्देश्य के बारे में लिखें।</p>
+  </section>
+
+  <section class="section" id="services">
+    <h2>हमारी सेवाएँ</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>जानकारी</h3>
+        <p>उपयोगी जानकारी साझा करें।</p>
+      </div>
+      <div class="card">
+        <h3>सीखना</h3>
+        <p>नई चीजें सीखें और सिखाएँ।</p>
+      </div>
+      <div class="card">
+        <h3>नए विचार</h3>
+        <p>अपने विचार लोगों तक पहुँचाएँ।</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <h2>संपर्क करें</h2>
+    <form onsubmit="sendMessage(event)">
+      <input id="name" type="text" placeholder="आपका नाम" required>
+      <textarea id="message" placeholder="अपना संदेश लिखें" required></textarea>
+      <button class="btn" type="submit">संदेश भेजें</button>
+    </form>
+    <p id="result"></p>
+  </section>
+
+  <footer>
+    <p>© 2026 Roshan की वेबसाइट</p>
+  </footer>
+
+  <script>
+    function welcome() {
+      alert("नमस्ते! वेबसाइट पर आपका स्वागत है।");
+    }
+
+    function sendMessage(event) {
+      event.preventDefault();
+      const name = document.getElementById("name").value;
+      document.getElementById("result").textContent =
+        "धन्यवाद " + name + "! यह डेमो फ़ॉर्म है। संदेश वास्तव में कहीं नहीं भेजा गया।";
+    }
+  </script>
+</body>
+</html>
