@@ -1,5 +1,6 @@
 {
-  "name": "DomaTape",
+  "name": "DomaTape", 
+  "description": "Watch, upload and share videos on DomaTape.",
   "short_name": "DomaTape",
   "start_url": "./",
   "display": "standalone",
