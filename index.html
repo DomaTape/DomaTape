@@ -1,201 +1,241 @@
 
 <!DOCTYPE html>
-<html lang="hi">
-<head> <link rel="manifest" href="./manifest.json">
-<meta name="theme-color" content="#0f0f0f">
+<html lang="en">
+<head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>RoshanTube - Video Platform</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DomaTape</title>
 <style>
 *{box-sizing:border-box}
-:root{--bg:#0f0f0f;--panel:#181818;--text:#f5f5f5;--muted:#aaa;--red:#ff0033}
-body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
-button,input{font:inherit}
-button{cursor:pointer}
-.topbar{height:60px;display:flex;align-items:center;gap:12px;padding:0 16px;background:var(--bg);position:sticky;top:0;z-index:5;border-bottom:1px solid #292929}
-.menu{background:none;color:white;border:0;font-size:25px}
-.logo{font-size:21px;font-weight:bold;white-space:nowrap}
-.logo span{color:var(--red)}
-.search{display:flex;flex:1;max-width:620px;margin:auto}
-.search input{width:100%;min-width:0;background:#121212;border:1px solid #444;color:white;padding:11px 14px;border-radius:25px 0 0 25px;outline:none}
-.search button{background:#292929;color:white;border:1px solid #444;padding:0 18px;border-radius:0 25px 25px 0}
-.topbtn{background:#272727;color:white;border:0;border-radius:22px;padding:10px 13px}
-.layout{display:flex}
-.sidebar{width:210px;position:fixed;top:60px;bottom:0;overflow:auto;padding:12px;background:var(--bg)}
-.sidebar button{display:block;width:100%;text-align:left;padding:14px 12px;color:white;background:none;border:0;border-radius:10px;font-size:15px}
-.sidebar button:hover,.sidebar button.active{background:#303030}
-.main{margin-left:210px;padding:18px;width:calc(100% - 210px)}
-.categories{display:flex;gap:9px;overflow:auto;padding:2px 0 18px;position:sticky;top:60px;background:var(--bg);z-index:3}
-.categories button{border:0;border-radius:8px;background:#272727;color:white;padding:9px 14px;white-space:nowrap}
-.categories button.active{background:white;color:#111}
-.video-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px 16px}
-.video{min-width:0;cursor:pointer}
-.thumb{aspect-ratio:16/9;border-radius:12px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background:linear-gradient(135deg,#172554,#7f1d1d)}
-.thumb .big{font-size:clamp(25px,4vw,54px);font-weight:900;text-align:center;padding:10px}
-.thumb .play{position:absolute;background:#0009;padding:7px 13px;border-radius:8px}
-.duration{position:absolute;bottom:7px;right:7px;background:#000c;border-radius:4px;padding:4px 6px;font-size:12px}
-.info{display:flex;gap:10px;padding-top:11px}
-.avatar{width:37px;height:37px;border-radius:50%;background:#383838;display:grid;place-items:center;flex-shrink:0;font-weight:bold}
+body{margin:0;background:#0f0f0f;color:white;font-family:Arial,sans-serif}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer;color:inherit}
+.top{height:62px;position:fixed;top:0;left:0;right:0;background:#101010;display:flex;align-items:center;gap:15px;padding:0 18px;z-index:10}
+.logo{font-size:23px;font-weight:bold;white-space:nowrap}.logo b{color:#ff1744}
+.search{display:flex;flex:1;max-width:650px;margin:auto}
+.search input{flex:1;min-width:0;background:#171717;border:1px solid #444;color:white;padding:12px 18px;border-radius:25px 0 0 25px}
+.search button{background:#292929;border:1px solid #444;padding:0 22px;border-radius:0 25px 25px 0}
+.btn{background:#292929;border:0;padding:10px 15px;border-radius:22px}
+.avatar{width:36px;height:36px;border-radius:50%;background:#315c9b;border:0;font-weight:bold}
+.sidebar{position:fixed;top:62px;bottom:0;left:0;width:220px;overflow:auto;padding:12px 8px;background:#0f0f0f}
+.nav{width:100%;display:flex;align-items:center;gap:18px;padding:13px 14px;background:none;border:0;text-align:left;border-radius:10px}
+.nav:hover,.nav.active{background:#303030}
+hr{border:0;border-top:1px solid #333;margin:12px 5px}
+main{margin-left:220px;padding:82px 22px 30px}
+.chips{display:flex;gap:9px;overflow:auto;position:sticky;top:62px;background:#0f0f0f;padding:10px 0 18px;z-index:5}
+.chip{white-space:nowrap;background:#292929;border:0;border-radius:8px;padding:9px 15px}
+.chip.active{background:white;color:black}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:25px 16px}
+.card{cursor:pointer;min-width:0}
+.thumb{aspect-ratio:16/9;border-radius:12px;display:grid;place-items:center;text-align:center;font-size:48px;padding:12px;position:relative;overflow:hidden}
+.duration{position:absolute;right:8px;bottom:8px;background:#000b;padding:4px 6px;border-radius:4px;font-size:12px}
+.info{display:flex;gap:10px;padding-top:10px}
+.miniavatar{width:38px;height:38px;border-radius:50%;background:#315c9b;display:grid;place-items:center;flex:none}
 .vtitle{font-weight:bold;font-size:15px;line-height:1.4}
-.meta{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.6}
-.empty{padding:50px 10px;text-align:center;color:var(--muted);grid-column:1/-1}
-.page-title{font-size:24px;margin:8px 0 20px}
-.shorts-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
-.short{aspect-ratio:9/16;border-radius:12px;display:flex;align-items:center;justify-content:center;text-align:center;padding:12px;font-size:21px;font-weight:bold;background:linear-gradient(160deg,#7f1d1d,#111827);cursor:pointer}
-#player{display:none;position:fixed;inset:0;background:#000e;z-index:10;overflow:auto;padding:20px}
-.playerbox{max-width:850px;margin:35px auto;background:#181818;padding:15px;border-radius:12px}
-.close{float:right;border:0;background:#333;color:white;padding:9px 13px;border-radius:8px}
-.playerbox h2{font-size:20px}
-.playerbox p{color:#bbb;line-height:1.6}
-.playerbox a{color:#80b7ff}
-.footer{text-align:center;color:#888;padding:30px;font-size:13px}
-@media(max-width:1000px){.video-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.sidebar{width:170px}.main{margin-left:170px;width:calc(100% - 170px)}.shorts-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:600px){
-.topbar{padding:0 8px;gap:7px;height:56px}.logo{font-size:17px}.topbtn{padding:9px}.search input{width:50px;padding:9px}.search button{padding:0 10px}
-.sidebar{width:65px;top:56px;padding:6px 3px}.sidebar button{text-align:center;font-size:10px;padding:13px 1px}
-.main{margin-left:65px;width:calc(100% - 65px);padding:12px 9px}
-.categories{top:56px;gap:7px;padding-bottom:14px}.categories button{padding:8px 11px;font-size:12px}
-.video-grid{grid-template-columns:1fr;gap:22px}.thumb{border-radius:9px}.vtitle{font-size:14px}
-.shorts-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.page-title{font-size:21px}
+.meta{font-size:12px;color:#aaa;line-height:1.7;margin-top:5px}
+.heading{font-size:23px;margin:12px 0 20px}
+.shorts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.short{aspect-ratio:9/16;border-radius:12px;display:grid;place-items:center;text-align:center;padding:12px;font-size:22px;cursor:pointer}
+.panel{background:#1c1c1c;padding:22px;border-radius:14px;margin:10px 0}
+.modal{display:none;position:fixed;inset:0;background:#000c;z-index:30;align-items:center;justify-content:center;padding:15px}
+.modal.show{display:flex}
+.box{background:#202020;width:min(850px,96vw);max-height:92vh;overflow:auto;border-radius:15px;padding:22px;position:relative}
+.close{float:right;border:0;background:#383838;padding:8px 12px;border-radius:8px}
+.field{display:grid;gap:7px;margin:14px 0}
+.field input,.field textarea,.field select{background:#111;color:white;border:1px solid #555;padding:12px;border-radius:8px;width:100%}
+.action{border:0;border-radius:22px;background:#333;padding:10px 15px;margin:5px}
+.primary{background:white;color:#111;border:0;border-radius:8px;padding:11px 18px;font-weight:bold}
+.player{width:100%;max-height:460px;background:black;border-radius:10px}
+.comment{padding:12px 0;border-bottom:1px solid #444}
+.commentform{display:flex;gap:8px;margin-top:12px}
+.commentform input{flex:1;min-width:0;background:#111;color:white;border:1px solid #555;border-radius:8px;padding:11px}
+.banner{padding:35px;border-radius:12px;background:linear-gradient(120deg,#153a65,#59204d)}
+.row{padding:15px 0;border-bottom:1px solid #383838}
+.muted{color:#aaa}
+@media(max-width:1050px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.sidebar{width:175px}main{margin-left:175px}.shorts{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:650px){
+.top{height:56px;padding:0 8px;gap:8px}.logo{font-size:17px}
+.sidebar{top:56px;width:64px;padding:8px 3px}.nav{justify-content:center;padding:14px 0;font-size:19px}.nav span{display:none}
+main{margin-left:64px;padding:70px 10px 25px}
+.chips{top:56px}.grid{grid-template-columns:1fr;gap:22px}
+.shorts{grid-template-columns:repeat(2,1fr)}
+.search input{width:40px;padding:9px}.search button{padding:0 12px}
+.btn.upload span{display:none}
 }
 </style>
 </head>
 <body>
-<header class="topbar">
-<button class="menu" onclick="toggleMenu()" aria-label="मेनू">☰</button>
-<div class="logo"><span>▶</span> RoshanTube</div>
+
+<header class="top">
+<button class="btn" onclick="toggleMenu()">☰</button>
+<div class="logo"><b>▶</b> DomaTape</div>
 <form class="search" onsubmit="searchVideos(event)">
-<input id="searchInput" placeholder="वीडियो खोजें..." aria-label="वीडियो खोजें">
-<button type="submit">🔍</button>
+<input id="search" placeholder="Search videos...">
+<button>⌕</button>
 </form>
-<button class="topbtn" onclick="showUpload()">＋</button>
+<button class="btn upload" onclick="openUpload()">＋ <span>Create</span></button>
+<button class="avatar" onclick="page('profile')">R</button>
 </header>
 
-<div class="layout">
 <aside class="sidebar" id="sidebar">
-<button class="active" onclick="showPage('home',this)">🏠 होम</button>
-<button onclick="showPage('shorts',this)">🎬 Shorts</button>
-<button onclick="showPage('subscriptions',this)">📺 सब्सक्रिप्शन</button>
-<hr style="border-color:#333">
-<button onclick="showPage('history',this)">🕘 इतिहास</button>
-<button onclick="showPage('liked',this)">👍 पसंद किए</button>
-<button onclick="showPage('library',this)">📚 आपकी लाइब्रेरी</button>
+<button class="nav active" onclick="page('home',this)">🏠 <span>Home</span></button>
+<button class="nav" onclick="page('shorts',this)">🎬 <span>Shorts</span></button>
+<button class="nav" onclick="page('subscriptions',this)">📺 <span>Subscriptions</span></button>
+<hr>
+<button class="nav" onclick="page('history',this)">🕘 <span>History</span></button>
+<button class="nav" onclick="page('liked',this)">👍 <span>Liked Videos</span></button>
+<button class="nav" onclick="page('watchlater',this)">⏰ <span>Watch Later</span></button>
+<button class="nav" onclick="page('playlists',this)">📚 <span>Playlists</span></button>
+<hr>
+<button class="nav" onclick="page('channel',this)">👤 <span>Your Channel</span></button>
+<button class="nav" onclick="page('notifications',this)">🔔 <span>Notifications</span></button>
+<button class="nav" onclick="page('settings',this)">⚙️ <span>Settings</span></button>
+<button class="nav" onclick="page('help',this)">❓ <span>Help</span></button>
 </aside>
 
-<main class="main">
-<div class="categories" id="categories">
-<button class="active" onclick="filterCategory('सभी',this)">सभी</button>
-<button onclick="filterCategory('ज्ञान',this)">ज्ञान</button>
-<button onclick="filterCategory('आध्यात्मिक',this)">आध्यात्मिक</button>
-<button onclick="filterCategory('गेमिंग',this)">गेमिंग</button>
-<button onclick="filterCategory('मनोरंजन',this)">मनोरंजन</button>
-<button onclick="filterCategory('शिक्षा',this)">शिक्षा</button>
-<button onclick="filterCategory('संगीत',this)">संगीत</button>
+<main>
+<div class="chips" id="chips">
+<button class="chip active" onclick="category('All',this)">All</button>
+<button class="chip" onclick="category('Knowledge',this)">Knowledge</button>
+<button class="chip" onclick="category('Spirituality',this)">Spirituality</button>
+<button class="chip" onclick="category('Gaming',this)">Gaming</button>
+<button class="chip" onclick="category('Education',this)">Education</button>
+<button class="chip" onclick="category('Entertainment',this)">Entertainment</button>
+<button class="chip" onclick="category('Music',this)">Music</button>
 </div>
-<div id="content"></div>
-<div class="footer">© 2026 RoshanTube · एक वीडियो वेबसाइट का डेमो</div>
+<section id="content"></section>
 </main>
+
+<div class="modal" id="watchModal">
+<div class="box">
+<button class="close" onclick="closeModal('watchModal')">✕</button>
+<div id="watchContent"></div>
+</div>
 </div>
 
-<div id="player" onclick="if(event.target===this)closePlayer()">
-<div class="playerbox">
-<button class="close" onclick="closePlayer()">✕ बंद करें</button>
-<div style="clear:both"></div>
-<h2 id="playerTitle">वीडियो</h2>
-<p id="playerDesc"></p>
-<div id="playerAction"></div>
+<div class="modal" id="uploadModal">
+<div class="box">
+<button class="close" onclick="closeModal('uploadModal')">✕</button>
+<h2>Upload Video</h2>
+<form onsubmit="uploadVideo(event)">
+<div class="field">Video Title<input id="uploadTitle" required></div>
+<div class="field">Channel Name<input id="uploadChannel" value="My Channel"></div>
+<div class="field">Category<select id="uploadCategory"><option>Knowledge</option><option>Spirituality</option><option>Gaming</option><option>Education</option><option>Entertainment</option><option>Music</option></select></div>
+<div class="field">Video File<input id="uploadFile" type="file" accept="video/*" required></div>
+<button class="primary">Add Video Preview</button>
+</form>
+<p class="muted">This is a local preview. A server is required for public uploads.</p>
+</div>
+</div>
+
+<div class="modal" id="profileModal">
+<div class="box">
+<button class="close" onclick="closeModal('profileModal')">✕</button>
+<h2>Profile Settings</h2>
+<div class="field">Your Name<input id="nameInput"></div>
+<button class="primary" onclick="saveName()">Save Changes</button>
 </div>
 </div>
 
 <script>
-const videos=[
-{title:"आध्यात्मिक ज्ञान की महत्वपूर्ण बातें",channel:"ज्ञान संसार",views:"12 हज़ार व्यूज़",age:"2 दिन पहले",category:"आध्यात्मिक",duration:"8:24",emoji:"🙏",bg:"linear-gradient(135deg,#713f12,#be123c)",desc:"आध्यात्मिक विषयों पर जानकारी और विचार।"},
-{title:"दुनिया की 5 रोचक बातें",channel:"जानकारी हिंदी",views:"8.2 हज़ार व्यूज़",age:"1 दिन पहले",category:"ज्ञान",duration:"6:12",emoji:"🌍",bg:"linear-gradient(135deg,#075985,#312e81)",desc:"रोचक तथ्यों को जानें।"},
-{title:"मोबाइल से वेबसाइट कैसे बनाएँ",channel:"टेक सीखो",views:"25 हज़ार व्यूज़",age:"3 दिन पहले",category:"शिक्षा",duration:"12:05",emoji:"💻",bg:"linear-gradient(135deg,#166534,#164e63)",desc:"वेबसाइट बनाने की शुरुआती जानकारी।"},
-{title:"Gaming Challenge 1 vs 4",channel:"Gaming Zone",views:"4.5 हज़ार व्यूज़",age:"5 घंटे पहले",category:"गेमिंग",duration:"10:18",emoji:"🎮",bg:"linear-gradient(135deg,#7e22ce,#be123c)",desc:"गेमिंग चुनौती का डेमो वीडियो कार्ड।"},
-{title:"मन को शांत रखने के तरीके",channel:"ज्ञान संसार",views:"15 हज़ार व्यूज़",age:"4 दिन पहले",category:"आध्यात्मिक",duration:"7:42",emoji:"🧘",bg:"linear-gradient(135deg,#065f46,#0f172a)",desc:"शांति और सकारात्मक सोच पर चर्चा।"},
-{title:"नई टेक्नोलॉजी की दुनिया",channel:"टेक सीखो",views:"3.1 हज़ार व्यूज़",age:"6 दिन पहले",category:"ज्ञान",duration:"9:11",emoji:"🚀",bg:"linear-gradient(135deg,#1d4ed8,#6d28d9)",desc:"नई तकनीकों की सामान्य जानकारी।"},
-{title:"आज का मज़ेदार वीडियो",channel:"मनोरंजन हिंदी",views:"7 हज़ार व्यूज़",age:"1 सप्ताह पहले",category:"मनोरंजन",duration:"4:36",emoji:"😄",bg:"linear-gradient(135deg,#b45309,#be123c)",desc:"मनोरंजन सेक्शन का डेमो कार्ड।"},
-{title:"संगीत और सुर",channel:"Music World",views:"2.8 हज़ार व्यूज़",age:"2 दिन पहले",category:"संगीत",duration:"5:40",emoji:"🎵",bg:"linear-gradient(135deg,#9d174d,#4338ca)",desc:"संगीत श्रेणी का डेमो वीडियो कार्ड।"}
+const initialVideos=[
+{id:"1",title:"Important Spiritual Knowledge",channel:"Knowledge World",category:"Spirituality",views:"12K views",age:"2 days ago",duration:"8:24",emoji:"🙏",bg:"linear-gradient(135deg,#713f12,#be123c)"},
+{id:"2",title:"5 Interesting Facts About the World",channel:"Hindi Facts",category:"Knowledge",views:"8.2K views",age:"1 day ago",duration:"6:12",emoji:"🌍",bg:"linear-gradient(135deg,#075985,#312e81)"},
+{id:"3",title:"How to Build a Website on Mobile",channel:"Tech Learning",category:"Education",views:"25K views",age:"3 days ago",duration:"12:05",emoji:"💻",bg:"linear-gradient(135deg,#166534,#164e63)"},
+{id:"4",title:"Gaming Challenge 1 vs 4",channel:"Gaming Zone",category:"Gaming",views:"4.5K views",age:"5 hours ago",duration:"10:18",emoji:"🎮",bg:"linear-gradient(135deg,#7e22ce,#be123c)"},
+{id:"5",title:"Ways to Keep Your Mind Calm",channel:"Knowledge World",category:"Spirituality",views:"15K views",age:"4 days ago",duration:"7:42",emoji:"🧘",bg:"linear-gradient(135deg,#065f46,#0f172a)"},
+{id:"6",title:"The World of New Technology",channel:"Tech Learning",category:"Knowledge",views:"3.1K views",age:"6 days ago",duration:"9:11",emoji:"🚀",bg:"linear-gradient(135deg,#1d4ed8,#6d28d9)"},
+{id:"7",title:"Today's Fun Video",channel:"Entertainment Hub",category:"Entertainment",views:"7K views",age:"1 week ago",duration:"4:36",emoji:"😄",bg:"linear-gradient(135deg,#b45309,#be123c)"},
+{id:"8",title:"Music and Melody",channel:"Music World",category:"Music",views:"2.8K views",age:"2 days ago",duration:"5:40",emoji:"🎵",bg:"linear-gradient(135deg,#9d174d,#4338ca)"}
 ];
-let currentPage="home",currentCategory="सभी",query="";
-let history=[],liked=[],subscriptions=[];
-const content=document.getElementById("content");
 
-function toggleMenu(){
-const s=document.getElementById("sidebar");
-if(s.style.display==="none"){s.style.display="";}else{s.style.display="none";}
-document.querySelector(".main").style.marginLeft=s.style.display==="none"?"0":"";
+let videos=initialVideos;
+let currentCategory="All";
+let currentPage="home";
+let currentVideo=null;
+let query="";
+let userName=localStorage.dtName||"Roshan";
+let likes=JSON.parse(localStorage.dtLikes||"[]");
+let history=JSON.parse(localStorage.dtHistory||"[]");
+let later=JSON.parse(localStorage.dtLater||"[]");
+let subs=JSON.parse(localStorage.dtSubs||"[]");
+let comments=JSON.parse(localStorage.dtComments||"{}");
+let playlists=JSON.parse(localStorage.dtPlaylists||"[]");
+
+function save(key,value){localStorage.setItem("dt"+key,JSON.stringify(value))}
+function toggleMenu(){document.getElementById("sidebar").classList.toggle("hide")}
+function openUpload(){document.getElementById("uploadModal").classList.add("show")}
+function closeModal(id){document.getElementById(id).classList.remove("show")}
+function category(c,btn){
+ currentCategory=c;
+ document.querySelectorAll(".chip").forEach(x=>x.classList.remove("active"));
+ btn.classList.add("active");page("home");
 }
+function searchVideos(e){e.preventDefault();query=document.getElementById("search").value.trim().toLowerCase();page("home")}
 function card(v){
-return `<article class="video" onclick="openVideo(${videos.indexOf(v)})">
-<div class="thumb" style="background:${v.bg}">
-<div class="big">${v.emoji}<br><span style="font-size:20px"> ${v.category} </span></div>
-<span class="play">▶</span><span class="duration">${v.duration}</span>
-</div>
-<div class="info"><div class="avatar">${v.channel.charAt(0)}</div>
-<div><div class="vtitle">${v.title}</div>
-<div class="meta">${v.channel}<br>${v.views} · ${v.age}</div></div></div>
-</article>`;
+ return `<article class="card" onclick="watch('${v.id}')">
+ <div class="thumb" style="background:${v.bg}">${v.emoji}<span class="duration">${v.duration||"Video"}</span></div>
+ <div class="info"><div class="miniavatar">${v.channel[0]}</div><div><div class="vtitle">${escapeText(v.title)}</div><div class="meta">${escapeText(v.channel)}<br>${v.views||"New video"} · ${v.age||"Just now"}</div></div></div>
+ </article>`;
 }
-function render(){
-document.getElementById("categories").style.display=currentPage==="shorts"?"none":"flex";
-let list=videos.filter(v=>(currentCategory==="सभी"||v.category===currentCategory)&&v.title.toLowerCase().includes(query.toLowerCase()));
-if(currentPage==="shorts"){
-content.innerHTML='<h2 class="page-title">🎬 Shorts</h2><div class="shorts-grid">'+videos.slice(0,6).map((v,i)=>`<div class="short" style="background:${v.bg}" onclick="openVideo(${i})">${v.emoji}<br><br>${v.title}<br><small style="font-size:12px">▶ वीडियो देखें</small></div>`).join("")+'</div>';
-return;
+function escapeText(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function list(title,arr){
+ return `<h2 class="heading">${title}</h2><div class="grid">${arr.length?arr.map(card).join(""):'<p class="muted">No videos found.</p>'}</div>`;
 }
-if(currentPage==="history")list=history.map(i=>videos[i]);
-if(currentPage==="liked")list=liked.map(i=>videos[i]);
-if(currentPage==="subscriptions")list=videos.filter(v=>subscriptions.includes(v.channel));
-if(currentPage==="library")list=history.map(i=>videos[i]);
-let title={home:"आपके लिए वीडियो",history:"देखे गए वीडियो",liked:"पसंद किए गए वीडियो",subscriptions:"सब्सक्रिप्शन",library:"आपकी लाइब्रेरी"}[currentPage]||"वीडियो";
-content.innerHTML='<h2 class="page-title">'+title+'</h2><div class="video-grid">'+(list.length?list.map(card).join(""):'<div class="empty">अभी यहाँ कोई वीडियो नहीं है।<br><br>होम पर जाकर वीडियो देखें।</div>')+'</div>';
+function page(p,btn){
+ currentPage=p;
+ document.querySelectorAll(".nav").forEach(x=>x.classList.remove("active"));
+ if(btn)btn.classList.add("active");
+ document.getElementById("chips").style.display=["shorts","settings","profile","notifications","help","channel"].includes(p)?"none":"flex";
+ let arr=[...videos];
+ if(p==="home")arr=arr.filter(v=>(currentCategory==="All"||v.category===currentCategory)&&(!query||(v.title+" "+v.channel).toLowerCase().includes(query)));
+ if(p==="history")arr=history.map(id=>videos.find(v=>v.id===id)).filter(Boolean);
+ if(p==="liked")arr=videos.filter(v=>likes.includes(v.id));
+ if(p==="watchlater")arr=videos.filter(v=>later.includes(v.id));
+ if(p==="subscriptions")arr=videos.filter(v=>subs.includes(v.channel));
+ if(p==="playlists"){document.getElementById("content").innerHTML=`<h2 class="heading">Your Playlists</h2><button class="action" onclick="newPlaylist()">＋ New Playlist</button>${playlists.map(x=>`<div class="row">${escapeText(x)}</div>`).join("")}`;return}
+ if(p==="shorts"){document.getElementById("content").innerHTML=`<h2 class="heading">Shorts</h2><div class="shorts">${videos.map(v=>`<div class="short" style="background:${v.bg}" onclick="watch('${v.id}')">${v.emoji}<br>${escapeText(v.title)}</div>`).join("")}</div>`;return}
+ if(p==="channel"){document.getElementById("content").innerHTML=`<div class="banner"><h1>${escapeText(userName)}</h1><p>Your DomaTape Channel</p><button class="action" onclick="openProfile()">Edit Profile</button></div>`+list("Your Videos",videos.filter(v=>v.channel==="My Channel"));return}
+ if(p==="settings"){document.getElementById("content").innerHTML=`<h2 class="heading">Settings</h2><div class="panel"><h3>General Settings</h3><div class="row">Account: ${escapeText(userName)}</div><div class="row">Language: English</div><div class="row">Theme: Dark</div><button class="action" onclick="document.body.style.background='#f5f5f5';document.body.style.color='#111'">Light Mode</button><button class="action" onclick="location.reload()">Reset Theme</button></div><div class="panel"><h3>Data</h3><button class="action" onclick="clearData()">Clear Local Demo Data</button></div>`;return}
+ if(p==="profile"){document.getElementById("content").innerHTML=`<h2 class="heading">Your Profile</h2><div class="panel"><h2>${escapeText(userName)}</h2><button class="primary" onclick="openProfile()">Edit Name</button></div>`;return}
+ if(p==="notifications"){document.getElementById("content").innerHTML=`<h2 class="heading">Notifications</h2><div class="panel">You have no new notifications.</div>`;return}
+ if(p==="help"){document.getElementById("content").innerHTML=`<h2 class="heading">Help</h2><div class="panel">The DomaTape demo includes video cards, local upload preview, likes, comments and profile settings. An online service requires a server and database.</div>`;return}
+ let titles={home:"Recommended Videos",history:"Watch History",liked:"Liked Videos",watchlater:"Watch Later",subscriptions:"Subscriptions"};
+ document.getElementById("content").innerHTML=list(titles[p]||"Videos",arr);
 }
-function showPage(p,btn){
-currentPage=p;query="";document.getElementById("searchInput").value="";
-document.querySelectorAll(".sidebar button").forEach(b=>b.classList.remove("active"));
-if(btn)btn.classList.add("active");render();
+function watch(id){
+ const v=videos.find(x=>x.id===id);if(!v)return;currentVideo=v;
+ history=[id,...history.filter(x=>x!==id)].slice(0,100);save("History",history);
+ let listComments=comments[id]||[];
+ document.getElementById("watchContent").innerHTML=`
+ <h2>${escapeText(v.title)}</h2>
+ ${v.url?`<video class="player" controls autoplay src="${v.url}"></video>`:`<div class="thumb" style="aspect-ratio:16/9;background:${v.bg};font-size:65px">${v.emoji}</div><p class="muted">This is a sample video card.</p>`}
+ <p class="muted">${escapeText(v.channel)} · ${v.views||"New video"}</p>
+ <button class="action" onclick="toggleLike('${id}')">👍 Like ${likes.includes(id)?"✓":""}</button>
+ <button class="action" onclick="toggleLater('${id}')">⏰ Watch Later</button>
+ <button class="action" onclick="subscribe('${escapeText(v.channel)}')">＋ Subscribe</button>
+ <button class="action" onclick="shareVideo()">↗ Share</button>
+ <h3>Comments (${listComments.length})</h3>
+ <div id="commentList">${listComments.map(c=>`<div class="comment">${escapeText(c)}</div>`).join("")}</div>
+ <form class="commentform" onsubmit="addComment(event,'${id}')"><input id="commentInput" placeholder="Write a comment..." required><button class="action">Send</button></form>`;
+ document.getElementById("watchModal").classList.add("show");
 }
-function filterCategory(c,btn){
-currentPage="home";currentCategory=c;
-document.querySelectorAll(".categories button").forEach(b=>b.classList.remove("active"));
-btn.classList.add("active");render();
+function toggleLike(id){likes=likes.includes(id)?likes.filter(x=>x!==id):[...likes,id];save("Likes",likes);watch(id)}
+function toggleLater(id){later=later.includes(id)?later.filter(x=>x!==id):[...later,id];save("Later",later);watch(id)}
+function subscribe(ch){if(!subs.includes(ch))subs.push(ch);save("Subs",subs);alert("Subscription saved in this demo.")}
+function addComment(e,id){e.preventDefault();let val=document.getElementById("commentInput").value.trim();if(!val)return;comments[id]=comments[id]||[];comments[id].push(val);save("Comments",comments);watch(id)}
+function shareVideo(){navigator.clipboard?.writeText(location.href).then(()=>alert("Link copied.")).catch(()=>alert("Copy is not available."))}
+function newPlaylist(){let n=prompt("Enter playlist name");if(n){playlists.push(n);save("Playlists",playlists);page("playlists")}}
+function uploadVideo(e){
+ e.preventDefault();let file=document.getElementById("uploadFile").files[0];if(!file)return;
+ let url=URL.createObjectURL(file);
+ let v={id:"local"+Date.now(),title:document.getElementById("uploadTitle").value,channel:document.getElementById("uploadChannel").value||"My Channel",category:document.getElementById("uploadCategory").value,views:"Local Preview",age:"Just now",duration:"Local",emoji:"▶",bg:"#222",url};
+ videos.unshift(v);closeModal("uploadModal");page("home");watch(v.id);
 }
-function searchVideos(e){
-e.preventDefault();query=document.getElementById("searchInput").value.trim();currentPage="home";render();
-}
-function openVideo(i){
-const v=videos[i];history.unshift(i);
-document.getElementById("playerTitle").textContent=v.title;
-document.getElementById("playerDesc").textContent=v.desc+" यह एक डेमो कार्ड है, असली वीडियो फ़ाइल नहीं।";
-document.getElementById("playerAction").innerHTML=
-`<div style="background:${v.bg};padding:45px 15px;text-align:center;border-radius:10px;font-size:45px">${v.emoji}<br><span style="font-size:18px">RoshanTube</span></div>
-<p>चैनल: ${v.channel}</p>
-<button class="topbtn" onclick="likeVideo(${i})">👍 पसंद करें</button>
-<button class="topbtn" onclick="subscribe('${v.channel.replace(/'/g,"\\'")}')">＋ सब्सक्राइब</button>
-<p id="notice" style="color:#9f9"></p>
-<p><a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=${encodeURIComponent(v.title)}">YouTube पर इस विषय के वीडियो खोजें ↗</a></p>`;
-document.getElementById("player").style.display="block";
-}
-function closePlayer(){document.getElementById("player").style.display="none";render();}
-function likeVideo(i){if(!liked.includes(i))liked.push(i);document.getElementById("notice").textContent="यह वीडियो आपकी पसंद की सूची में जुड़ गया।";}
-function subscribe(c){if(!subscriptions.includes(c))subscriptions.push(c);document.getElementById("notice").textContent=c+" सब्सक्रिप्शन सूची में जुड़ गया।";}
-function showUpload(){
-document.getElementById("playerTitle").textContent="वीडियो अपलोड";
-document.getElementById("playerDesc").textContent="यह डेमो वेबसाइट है। वीडियो अपलोड और सभी यूज़र्स के लिए सेव करने हेतु सर्वर और डेटाबेस बनाना होगा।";
-document.getElementById("playerAction").innerHTML='<p>अभी यहाँ से वीडियो सार्वजनिक रूप से अपलोड नहीं किया जा सकता।</p>';
-document.getElementById("player").style.display="block";
-}
-render();
+function openProfile(){document.getElementById("nameInput").value=userName;document.getElementById("profileModal").classList.add("show")}
+function saveName(){userName=document.getElementById("nameInput").value.trim()||"Roshan";localStorage.dtName=userName;closeModal("profileModal");page("profile")}
+function clearData(){if(confirm("Do you want to clear this browser's demo data?")){Object.keys(localStorage).filter(k=>k.startsWith("dt")).forEach(k=>localStorage.removeItem(k));location.reload()}}
+page("home");
 </script>
-</body> <script>
-  if ("serviceWorker" in navigator) {
-    window.addEventListener("load", () => {
-      navigator.serviceWorker.register("./pwabuilder-sw.js")
-        .then(() => console.log("Service Worker registered"))
-        .catch((error) => console.error("Service Worker error:", error));
-    });
-  }
-</script>
+</body>
 </html>
