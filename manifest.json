@@ -1,1 +1,12 @@
-
+{
+  "id": "/RoshanWesbite-/",
+  "name": "RoshanTube",
+  "short_name": "RoshanTube",
+  "description": "RoshanTube - Hindi videos and knowledge",
+  "start_url": "/RoshanWesbite-/",
+  "scope": "/RoshanWesbite-/",
+  "display": "standalone",
+  "background_color": "#0f0f0f",
+  "theme_color": "#0f0f0f",
+  "orientation": "portrait"
+}
